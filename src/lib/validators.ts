@@ -25,11 +25,11 @@ export const invoiceItemSchema = z.object({
     id: z.string(),
     description: z.string().min(1, 'Deskripsi item wajib diisi'),
     quantity: z
-        .number({ invalid_type_error: 'Kuantitas harus berupa angka' })
+        .number({ message: 'Kuantitas harus berupa angka' })
         .min(1, 'Minimal 1 item')
         .max(9999, 'Maksimal 9999 item'),
     unitPrice: z
-        .number({ invalid_type_error: 'Harga harus berupa angka' })
+        .number({ message: 'Harga harus berupa angka' })
         .min(0, 'Harga tidak boleh negatif')
         .max(999999999999, 'Harga terlalu besar'),
 });
@@ -45,12 +45,12 @@ export const invoiceFormSchema = z.object({
     client: clientInfoSchema,
     items: z.array(invoiceItemSchema).min(1, 'Minimal harus ada 1 item'),
     taxRate: z
-        .number({ invalid_type_error: 'Pajak harus berupa angka' })
+        .number({ message: 'Pajak harus berupa angka' })
         .min(0, 'Pajak minimal 0%')
         .max(100, 'Pajak maksimal 100%'),
     discountType: z.enum(['flat', 'percentage']),
     discountValue: z
-        .number({ invalid_type_error: 'Diskon harus berupa angka' })
+        .number({ message: 'Diskon harus berupa angka' })
         .min(0, 'Diskon tidak boleh negatif'),
     notes: z.string().optional(),
     paymentTerms: z.string().optional(),
